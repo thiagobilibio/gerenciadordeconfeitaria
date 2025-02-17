@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Categorias</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- ✅ Menu de Navegação -->
+    <nav>
+        <a href="/">🏠 Início</a>
+        <a href="/dashboard">📊 Dashboard</a>
+        <a href="/insumos">📦 Gerenciar Insumos</a>
+        <a href="/categorias">📂 Categorias</a>
+    </nav>
+
+    <div class="container">
+        <h1>📂 Gerenciar Categorias</h1>
+
+        <!-- ✅ Formulário para Adicionar Categoria -->
+        <form action="/add_categoria" method="POST">
+            <label for="nome">Nome da Categoria:</label>
+            <input type="text" name="nome" required>
+            <button type="submit" class="btn">➕ Adicionar</button>
+        </form>
+
+        <br> <!-- 🔹 Adicionando espaço entre os elementos -->
+
+        <!-- ✅ Barra de busca -->
+        <input type="text" id="searchBar" placeholder="🔍 Buscar categoria..." onkeyup="filtrarCategorias()">
+
+        <br><br> <!-- 🔹 Espaço antes da tabela -->
+
+        <!-- ✅ Tabela de Categorias -->
+        <h2>📋 Lista de Categorias</h2>
+        <table id="tabelaCategorias" border="1">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id }}</td>
+                <td>{{ categoria.nome }}</td>
+                <td>
+                    <form action="{{ url_for('delete_categoria', id=categoria.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja excluir?')">❌ Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- ✅ Script para Filtrar Categorias -->
+    <script>
+        function filtrarCategorias() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let rows = document.querySelectorAll("#tabelaCategorias tr:not(:first-child)");
+
+            rows.forEach(row => {
+                let nome = row.cells[1].textContent.toLowerCase(); // 🔹 Pegando a coluna do nome da categoria
+                row.style.display = nome.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+
+</body>
+</html>

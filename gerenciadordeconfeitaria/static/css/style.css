@@ -1,0 +1,312 @@
+/* ✅ Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ✅ Corpo da página */
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+/* ✅ Menu de navegação */
+nav {
+    background-color: #007bff;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 10px;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ Layout da página */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Resumo Financeiro */
+.resumo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    width: 48%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.card .valor {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.despesas {
+    background-color: #dc3545;
+}
+
+/* ✅ Gráficos */
+.card-grafico {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Botões */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* ✅ Responsividade para celular */
+@media (max-width: 768px) {
+    .resumo {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    nav a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+/* ✅ Melhorando o layout da página inicial */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* ✅ Menu de navegação estilizado */
+nav {
+    background-color: #007bff;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ Estilizando os textos */
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.descricao {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ✅ Centralizando a imagem */
+.imagem-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.imagem-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Ajustando os botões */
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* ✅ Responsividade para celular */
+@media (max-width: 768px) {
+    .botoes {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+/* ✅ Estilizando a tabela de insumos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* ✅ Destacar insumos com estoque baixo */
+tr.alerta {
+    background-color: #ffcccc;
+    font-weight: bold;
+}
+
+/* ✅ Barra de busca */
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* ✅ Formulário de adição */
+.form-insumo {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.form-insumo input, .form-insumo select, .form-insumo button {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-insumo button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.form-insumo button:hover {
+    background-color: #218838;
+}
+
+/* ✅ Botões de ação */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.status.critical {
+    color: red;
+    font-weight: bold;
+}
+
+.status.warning {
+    color: orange;
+    font-weight: bold;
+}
+
+.status.stable {
+    color: green;
+    font-weight: bold;
+}

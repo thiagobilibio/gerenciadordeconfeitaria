@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- ✅ Menu de Navegação -->
+    <nav>
+        <a href="/">🏠 Início</a>
+        <a href="/dashboard">📊 Dashboard</a>
+        <a href="/insumos">📦 Gerenciar Insumos</a>
+        <a href="/produtos">🛒 Gerenciar Produtos</a>
+    </nav>
+
+    <div class="container">
+        <h1>🛒 Gerenciar Produtos</h1>
+
+        <!-- ✅ Formulário para Adicionar Produto -->
+        <form action="/add_produto" method="POST">
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" name="nome" required>
+
+            <label for="preco_venda">Preço de Venda:</label>
+            <input type="number" step="0.01" name="preco_venda" required>
+
+            <h3>📌 Selecione os Insumos</h3>
+            <div id="insumo-container">
+                <div class="insumo-row">
+                    <select name="insumos[]">
+                        {% for insumo in insumos %}
+                        <option value="{{ insumo.id }}">{{ insumo.nome }} ({{ insumo.unidade }})</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" step="0.01" name="quantidades[]" placeholder="Quantidade usada" required>
+                    <button type="button" onclick="removerInsumo(this)">❌</button>
+                </div>
+            </div>
+
+            <button type="button" onclick="adicionarInsumo()">➕ Adicionar Insumo</button>
+
+            <button type="submit" class="btn">💾 Salvar Produto</button>
+        </form>
+
+        <!-- ✅ Lista de Produtos -->
+        <h2>📋 Lista de Produtos</h2>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço de Venda</th>
+                <th>Receita</th>
+                <th>Ações</th>
+            </tr>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.id }}</td>
+                <td>{{ produto.nome }}</td>
+                <td>R$ {{ produto.preco_venda }}</td>
+                <td>
+                    {% for receita in produto.receita %}
+                    {{ receita.insumo.nome }} ({{ receita.quantidade_usada }} {{ receita.insumo.unidade }}) <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="#" class="btn">✏️ Editar</a>
+                    <form action="#" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja excluir?')">❌ Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script>
+        function adicionarInsumo() {
+            let container = document.getElementById("insumo-container");
+            let row = document.createElement("div");
+            row.classList.add("insumo-row");
+
+            row.innerHTML = `
+                <select name="insumos[]">
+                    {% for insumo in insumos %}
+                    <option value="{{ insumo.id }}">{{ insumo.nome }} ({{ insumo.unidade }})</option>
+                    {% endfor %}
+                </select>
+                <input type="number" step="0.01" name="quantidades[]" placeholder="Quantidade usada" required>
+                <button type="button" onclick="removerInsumo(this)">❌</button>
+            `;
+
+            container.appendChild(row);
+        }
+
+        function removerInsumo(botao) {
+            botao.parentNode.remove();
+        }
+    </script>
+
+</body>
+</html>

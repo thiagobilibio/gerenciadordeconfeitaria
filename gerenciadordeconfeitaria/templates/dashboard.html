@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+</head>
+<body>
+
+    <!-- ✅ Menu de Navegação -->
+    <nav>
+        <a href="/">🏠 Início</a>
+        <a href="/dashboard">📊 Dashboard</a>
+        <a href="/insumos">📦 Gerenciar Insumos</a>
+    </nav>
+
+    <div class="container">
+        <h1>📊 Dashboard</h1>
+
+        <!-- ✅ Resumo Financeiro (Estilizado) -->
+        <div class="resumo">
+            <div class="card">
+                <h3>💰 Vendas do Mês</h3>
+                <p class="valor">R$ {{ vendas }}</p>
+            </div>
+            <div class="card despesas">
+                <h3>📉 Despesas do Mês</h3>
+                <p class="valor">R$ {{ despesas }}</p>
+            </div>
+        </div>
+
+        <!-- ✅ Gráfico de Vendas x Despesas -->
+        <div class="card-grafico">
+            <h2>📈 Relatório Financeiro</h2>
+            <canvas id="graficoFinanceiro"></canvas>
+        </div>
+
+        <!-- ✅ Gráfico de Estoque -->
+        <div class="card-grafico">
+            <h2>📦 Controle de Estoque</h2>
+            <canvas id="graficoEstoque"></canvas>
+        </div>
+
+        <div class="center">
+            <a href="/insumos" class="btn">📦 Gerenciar Insumos</a>
+        </div>
+
+        <!-- ✅ Gráfico de Linha para Vendas ao Longo do Tempo -->
+        <div class="card-grafico">
+            <h2>📅 Vendas Mensais</h2>
+            <canvas id="graficoVendas"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- ✅ Script para os Gráficos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let vendasValor = JSON.parse('{{ vendas|tojson }}');
+            let despesasValor = JSON.parse('{{ despesas|tojson }}');
+    
+            let estoqueLabels = JSON.parse('{{ estoque_labels|tojson }}');
+            let estoqueData = JSON.parse('{{ estoque_data|tojson }}');
+    
+            // ✅ Gráfico de Vendas x Despesas (Melhorado)
+            const ctx1 = document.getElementById('graficoFinanceiro').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Vendas', 'Despesas'],
+                    datasets: [{
+                        label: 'R$ (Reais)',
+                        data: [vendasValor, despesasValor],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                        borderColor: ['#1e7e34', '#b21f2d'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `R$ ${tooltipItem.raw.toLocaleString("pt-BR")}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+    
+            // ✅ Gráfico de Estoque de Insumos (Melhorado)
+            const ctx2 = document.getElementById('graficoEstoque').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: estoqueLabels,
+                    datasets: [{
+                        label: 'Quantidade',
+                        data: estoqueData,
+                        backgroundColor: ['#007bff', '#ffc107', '#17a2b8', '#28a745', '#fd7e14'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'right' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `${tooltipItem.raw} unidades`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // ✅ Gráfico de Linha para Vendas ao Longo do Tempo (Novo!)
+            const ctx3 = document.getElementById('graficoVendas').getContext('2d');
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Vendas Mensais',
+                        data: [3000, 4500, 5000, 7000, 6000, 7500, 8000],  // Exemplo de valores
+                        backgroundColor: '#007bff',
+                        borderColor: '#007bff',
+                        fill: false,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `R$ ${tooltipItem.raw.toLocaleString("pt-BR")}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+    
+        });
+
+    </script>
+
+</body>
+</html>
